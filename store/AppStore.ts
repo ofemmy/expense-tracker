@@ -4,10 +4,10 @@ export type Action =
   | { type: "changeCurrency"; payload: any };
 export function reducer(state: AppState, action: Action): AppState {
   switch (action.type) {
-    case "changeCurrency":
-      return { ...state, selectedMonth: action.payload.month };
     case "changeMonth":
-      return state;
+      return { ...state, selectedMonth: action.payload };
+    case "changeCurrency":
+      return {...state,currency:action.payload};
     default:
       return state;
   }

@@ -27,7 +27,7 @@ const Sidebar: React.FC<SidebarProps> = () => {
           py={4}
           width="100%"
         >
-         <Link href="/">
+         <Link href="/income">
           <a>Income</a>
           </Link>
         </Center>
@@ -39,7 +39,7 @@ const Sidebar: React.FC<SidebarProps> = () => {
           py={4}
           width="100%"
         >
-         <Link href="/">
+         <Link href="/expense">
           <a>Expenses</a>
           </Link>
         </Center>

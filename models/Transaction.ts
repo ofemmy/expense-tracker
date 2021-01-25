@@ -2,10 +2,10 @@ import TransactionType from "./TransactionType";
 
 interface Transaction {
   id: string;
-  title: String;
+  title: string;
   type: TransactionType;
-  amount: Number;
-  isRecurring: Boolean;
+  amount: number;
+  isRecurring: boolean;
   date: Date;
 }
 export default Transaction;

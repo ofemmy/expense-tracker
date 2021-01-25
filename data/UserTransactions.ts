@@ -41,7 +41,7 @@ export const UserTransactions: UserTransactionType = {
       id: "5",
       title: "Television Purchase",
       type: TransactionType.Expense,
-      amount: 700,
+      amount: 200,
       date: new Date(),
       isRecurring: false,
     },

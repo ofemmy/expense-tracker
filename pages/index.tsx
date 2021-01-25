@@ -9,7 +9,7 @@ export default function Home() {
   const {
     state: { transactions,selectedMonth },
   } = useContext(AppContext);
-  const trxList = transactions[selectedMonth]
+  const trxList = transactions[selectedMonth] || []
   return (
     <div>
       <Head>
