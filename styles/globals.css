@@ -1,20 +1,3 @@
-html,
-body {
-  padding: 0;
-  margin: 0;
-}
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-* {
-  box-sizing: border-box;
-}
-
-.sideBarNavLink{
-  background-color: #fff;
-    width: 100%;
-    padding: 10px;
-    color: rgb(20, 28, 51);
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

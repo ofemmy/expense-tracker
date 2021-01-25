@@ -2,12 +2,12 @@ import { Table, Tbody, Td, Th, Thead, Tr,Text } from "@chakra-ui/react";
 import React, { useContext } from "react";
 import Transaction from "../models/Transaction";
 import TransactionType from "../models/TransactionType";
-import { AppContext } from "../pages/_app";
+import useAppStore from "../store/AppStore"
 type TransactionListProps = {
   trxList: Transaction[];
 };
 const TransactionList: React.FC<TransactionListProps> = ({ trxList }) => {
-  const {state:{currency}}=useContext(AppContext)
+  const currency = useAppStore(state=>state.currency)
   return (
     <Table variant="striped" colorScheme="blue">
       <Thead>
