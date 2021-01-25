@@ -1,33 +1,37 @@
 import "../styles/globals.css";
+import React, { createContext, useReducer } from "react";
 import type { AppProps } from "next/app";
 import { ChakraProvider } from "@chakra-ui/react";
-import { extendTheme } from "@chakra-ui/react";
+import { theme } from "../styles/AppTheme";
 import Layout from "../components/Layout";
-import {Fonts} from '../styles/Fonts';
+import { Fonts } from "../styles/Fonts";
+import AppState from "../models/AppState";
+import { UserTransactions } from "../data/UserTransactions";
+import Months from "../models/Months";
+import Currency from "../models/Currency";
+import {reducer,Action} from "../store/AppStore";
 
-const theme = extendTheme({
-  styles: {
-    global:{
-      "html, body":{
-        fontSize:"sm",
-        color:"gray.600",
-        lineHeight:"tall",
-        backgroundColor:"gray.100"
-      }
-    },
-  fonts: {
-    body: "Lato",
-    heading: "Lato",
-  },
-}});
+const initialState: AppState = {
+  transactions: UserTransactions,
+  selectedMonth: Months.January,
+  currency: Currency.EUR,
+};
+type MyAppContext ={
+  state:AppState,
+  dispatch: React.Dispatch<Action>
+}
+export const AppContext = createContext<MyAppContext>(null);
 function MyApp({ Component, pageProps }: AppProps) {
+  const [state, dispatch] = useReducer(reducer, initialState);
   return (
-    <ChakraProvider theme={theme}>
-      <Fonts/>
-      <Layout>
-      <Component {...pageProps} />
-      </Layout>
-    </ChakraProvider>
+    <AppContext.Provider value={{ state, dispatch }}>
+      <ChakraProvider theme={theme}>
+        <Fonts />
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </ChakraProvider>
+    </AppContext.Provider>
   );
 }
 
