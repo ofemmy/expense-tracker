@@ -2,16 +2,25 @@ import React from "react";
 import Link from "next/link";
 import SettingsSVG from "./svgs/SettingsSVG";
 import HelpSVG from "./svgs/HelpSVG";
-
+import HomeSVG from "./svgs/HomeSVG";
+import ScaleSVG from "./svgs/ScaleSVG";
+import CardSVG from "./svgs/CardSVG";
+import DocumentSVG from "./svgs/DocumentSVG";
 export type MenuItem = {
   href: string;
   name: string;
   icon?: React.FC<React.SVGProps<SVGSVGElement>>;
 };
 type SidebarProps = {
-  links: MenuItem[];
 };
-const Sidebar: React.FC<SidebarProps> = ({ links }) => {
+const Sidebar: React.FC<SidebarProps> = (props) => {
+  const links:MenuItem[] = [
+    {href:"/",name:"Home",icon:HomeSVG },
+    {href:"/income",name:"Incomes",icon:ScaleSVG},
+    {href:"/expense",name:"Expenses",icon:CardSVG},
+    {href:"/report",name:"Reports",icon:DocumentSVG}
+
+  ]
   return (
     <div className="flex flex-col flex-grow bg-gray-700 pt-5 pb-4 overflow-y-auto">
       <div className="flex items-center flex-shrink-0 px-4">
@@ -27,10 +36,11 @@ const Sidebar: React.FC<SidebarProps> = ({ links }) => {
       >
         <div className="px-2 space-y-1">
           {links.map(({ href, name,icon }) => (
-            <Link href={href}>
+            <Link href={href} >
               <a
                 href=""
                 className="group flex items-center px-2 py-2 text-sm leading-6 font-medium rounded-md text-gray-100 hover:text-white hover:bg-gray-600"
+                key={name}
               >
                 {icon(null)}
                 {name}
@@ -63,48 +73,3 @@ const Sidebar: React.FC<SidebarProps> = ({ links }) => {
 };
 
 export default Sidebar;
-
-/**
- * <Box width="300px" bgColor="blue.700" minH="100vh" color="white">
-      <VStack pt="210px">
-        <Center
-          fontWeight="semibold"
-          fontSize="md"
-          letterSpacing="wide"
-          textTransform="uppercase"
-          py={4}
-          width="100%"
-        >
-          <Link href="/">
-          <a>Transactions</a>
-          </Link>
-        </Center>
-        <Center
-          fontWeight="semibold"
-          fontSize="md"
-          letterSpacing="wide"
-          textTransform="uppercase"
-          py={4}
-          width="100%"
-        >
-         <Link href="/income">
-          <a>Income</a>
-          </Link>
-        </Center>
-        <Center
-          fontWeight="semibold"
-          fontSize="md"
-          letterSpacing="wide"
-          textTransform="uppercase"
-          py={4}
-          width="100%"
-        >
-         <Link href="/expense">
-          <a>Expenses</a>
-          </Link>
-        </Center>
-      </VStack>
-    </Box>
- * 
- * 
-*/

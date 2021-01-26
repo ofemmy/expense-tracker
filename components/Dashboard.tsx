@@ -8,9 +8,9 @@ import {
   Heading,
   HStack,
 } from "@chakra-ui/react";
-import { AppContext } from "../pages/_app";
 import TransactionType from "../models/TransactionType";
 import Transaction from "../models/Transaction";
+const AppContext = null;
 type DashboardProp = {};
 const Dashboard: React.FC<DashboardProp> = (props) => {
   const {
