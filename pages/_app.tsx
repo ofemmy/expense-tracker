@@ -1,6 +1,7 @@
 import "../styles/globals.css";
 import React, { createContext, useReducer } from "react";
 import type { AppProps } from "next/app";
+import Layout from "../components/Layout";
 // import { ChakraProvider } from "@chakra-ui/react";
 // import { theme } from "../styles/AppTheme";
 // import Layout from "../components/Layout";
@@ -22,7 +23,11 @@ import type { AppProps } from "next/app";
 // }
 //export const AppContext = createContext<MyAppContext>(null);
 function MyApp({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />;
+  return (
+    <Layout>
+      <Component {...pageProps} />
+    </Layout>
+  );
 }
 
 export default MyApp;

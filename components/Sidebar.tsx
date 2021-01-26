@@ -1,11 +1,71 @@
 import React from "react";
 import Link from "next/link";
-import { Box, Center, VStack } from "@chakra-ui/react";
+import SettingsSVG from "./svgs/SettingsSVG";
+import HelpSVG from "./svgs/HelpSVG";
 
-type SidebarProps = {};
-const Sidebar: React.FC<SidebarProps> = () => {
+export type MenuItem = {
+  href: string;
+  name: string;
+  icon?: React.FC<React.SVGProps<SVGSVGElement>>;
+};
+type SidebarProps = {
+  links: MenuItem[];
+};
+const Sidebar: React.FC<SidebarProps> = ({ links }) => {
   return (
-    <Box width="300px" bgColor="blue.700" minH="100vh" color="white">
+    <div className="flex flex-col flex-grow bg-gray-700 pt-5 pb-4 overflow-y-auto">
+      <div className="flex items-center flex-shrink-0 px-4">
+        <img
+          className="h-8 w-auto"
+          src="https://tailwindui.com/img/logos/easywire-logo-cyan-300-mark-white-text.svg"
+          alt="Easywire logo"
+        />
+      </div>
+      <nav
+        className="mt-5 flex-1 flex flex-col divide-y divide-gray-800 overflow-y-auto mt-12"
+        aria-label="Sidebar"
+      >
+        <div className="px-2 space-y-1">
+          {links.map(({ href, name,icon }) => (
+            <Link href={href}>
+              <a
+                href=""
+                className="group flex items-center px-2 py-2 text-sm leading-6 font-medium rounded-md text-gray-100 hover:text-white hover:bg-gray-600"
+              >
+                {icon(null)}
+                {name}
+              </a>
+            </Link>
+          ))}
+        </div>
+        <div className="mt-6 pt-6">
+          <div className="px-2 space-y-1">
+            <a
+              href="#"
+              className="group flex items-center px-2 py-2 text-sm leading-6 font-medium rounded-md text-gray-100 hover:text-white hover:bg-gray-600"
+            >
+              <SettingsSVG />
+              Settings
+            </a>
+
+            <a
+              href="#"
+              className="group flex items-center px-2 py-2 text-sm leading-6 font-medium rounded-md text-gray-100 hover:text-white hover:bg-gray-600"
+            >
+              <HelpSVG />
+              Help
+            </a>
+          </div>
+        </div>
+      </nav>
+    </div>
+  );
+};
+
+export default Sidebar;
+
+/**
+ * <Box width="300px" bgColor="blue.700" minH="100vh" color="white">
       <VStack pt="210px">
         <Center
           fontWeight="semibold"
@@ -45,7 +105,6 @@ const Sidebar: React.FC<SidebarProps> = () => {
         </Center>
       </VStack>
     </Box>
-  );
-};
-
-export default Sidebar;
+ * 
+ * 
+*/
