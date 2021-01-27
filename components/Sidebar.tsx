@@ -22,7 +22,7 @@ const Sidebar: React.FC<SidebarProps> = (props) => {
 
   ]
   return (
-    <div className="flex flex-col flex-grow bg-gray-700 pt-5 pb-4 overflow-y-auto">
+    <div className="flex flex-col flex-grow bg-blue-700 pt-5 pb-4 overflow-y-auto">
       <div className="flex items-center flex-shrink-0 px-4">
         <img
           className="h-8 w-auto"
@@ -31,7 +31,7 @@ const Sidebar: React.FC<SidebarProps> = (props) => {
         />
       </div>
       <nav
-        className="flex-1 flex flex-col divide-y divide-gray-800 overflow-y-auto mt-16"
+        className="flex-1 flex flex-col divide-y divide-white overflow-y-auto mt-20"
         aria-label="Sidebar"
       >
         <div className="px-2 space-y-1">
@@ -39,7 +39,7 @@ const Sidebar: React.FC<SidebarProps> = (props) => {
             <Link href={href} key={name}>
               <a
                 href=""
-                className="group flex items-center px-2 py-2 text-sm leading-6 font-medium rounded-md text-gray-100 hover:text-white hover:bg-gray-600"
+                className="group flex items-center px-2 py-2 text-sm leading-6 font-medium rounded-md text-blue-100 hover:text-white hover:bg-blue-600"
                 key={name}
               >
                 {icon(null)}
@@ -52,7 +52,7 @@ const Sidebar: React.FC<SidebarProps> = (props) => {
           <div className="px-2 space-y-1">
             <a
               href="#"
-              className="group flex items-center px-2 py-2 text-sm leading-6 font-medium rounded-md text-gray-100 hover:text-white hover:bg-gray-600"
+              className="group flex items-center px-2 py-2 text-sm leading-6 font-medium rounded-md text-gray-100 hover:text-white hover:bg-blue-600"
             >
               <SettingsSVG />
               Settings
@@ -60,7 +60,7 @@ const Sidebar: React.FC<SidebarProps> = (props) => {
 
             <a
               href="#"
-              className="group flex items-center px-2 py-2 text-sm leading-6 font-medium rounded-md text-gray-100 hover:text-white hover:bg-gray-600"
+              className="group flex items-center px-2 py-2 text-sm leading-6 font-medium rounded-md text-gray-100 hover:text-white hover:bg-blue-600"
             >
               <HelpSVG />
               Help
