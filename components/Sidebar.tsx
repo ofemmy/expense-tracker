@@ -31,7 +31,7 @@ const Sidebar: React.FC<SidebarProps> = (props) => {
         />
       </div>
       <nav
-        className="mt-5 flex-1 flex flex-col divide-y divide-gray-800 overflow-y-auto mt-12"
+        className="flex-1 flex flex-col divide-y divide-gray-800 overflow-y-auto mt-16"
         aria-label="Sidebar"
       >
         <div className="px-2 space-y-1">
