@@ -36,7 +36,7 @@ const Sidebar: React.FC<SidebarProps> = (props) => {
       >
         <div className="px-2 space-y-1">
           {links.map(({ href, name,icon }) => (
-            <Link href={href} >
+            <Link href={href} key={name}>
               <a
                 href=""
                 className="group flex items-center px-2 py-2 text-sm leading-6 font-medium rounded-md text-gray-100 hover:text-white hover:bg-gray-600"

@@ -3,6 +3,7 @@ import ScaleSVG from "./svgs/ScaleSVG";
 import  useAppStore  from "../store/AppStore";
 import TransactionType from "../models/TransactionType";
 import Transaction from "../models/Transaction";
+import {formatNumberToCurrency } from "../utils";
 const Dashboard = () => {
    const currency = useAppStore(state=>state.currency)
    const transactions = useAppStore(state=>state.transactions)
@@ -31,7 +32,7 @@ const Dashboard = () => {
                   </dt>
                   <dd>
                     <div className="text-lg font-medium text-gray-800">
-                      {new Intl.NumberFormat('de-DE', { style: 'currency', currency }).format(totalIncome)}
+                      {formatNumberToCurrency(totalIncome,currency)}
                     </div>
                   </dd>
                 </dl>
@@ -58,7 +59,7 @@ const Dashboard = () => {
                   </dt>
                   <dd>
                     <div className="text-lg font-medium text-gray-900">
-                    {new Intl.NumberFormat('de-DE', { style: 'currency', currency }).format(totalExpenditure)}
+                    {formatNumberToCurrency(totalExpenditure,currency)}
                     </div>
                   </dd>
                 </dl>
