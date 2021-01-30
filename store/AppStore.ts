@@ -5,15 +5,17 @@ import Months from "../models/Months";
 import {UserTransactions} from "../data/UserTransactions"
 type AppState = {
   transactions?: UserTransactionType;
-  selectedMonth: Months;
+  selectedMonth: string;
   currency: Currency;
+  setMonth:(mnt)=>void
 };
 
 const useAppStore = create<AppState>(
   (set: SetState<AppState>, get: GetState<AppState>) => ({
     transactions:UserTransactions,
-    selectedMonth: Months.January,
+    selectedMonth: "January",
     currency: Currency.EUR,
+    setMonth:mnt=>set({selectedMonth:mnt})
   })
 );
 export default useAppStore;
