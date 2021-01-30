@@ -3,6 +3,8 @@ import CashSVG from "./svgs/CashSVG";
 import { DataTableProps } from "./DataTableSmall";
 import { formatDate, formatNumberToCurrency } from "../utils";
 import TransactionType from "../models/TransactionType";
+import { CategoryIcon } from "./CategoryIcon";
+import { ExpenseCategory } from "../models/ExpenseCategory";
 
 const DataTableBig: React.FC<DataTableProps> = ({ trxList, currency }) => {
   return (
@@ -25,15 +27,17 @@ const DataTableBig: React.FC<DataTableProps> = ({ trxList, currency }) => {
                 </tr>
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
-                {trxList.map(({ id, title, amount, date, type }) => (
+                {trxList.map(({ id, title, amount, date, type,category }) => (
                   <tr className="bg-white" key={id}>
                     <td className="max-w-0 w-full px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                      <div className="flex">
+                      <div className="flex ">
                         <a
                           href="#"
-                          className="group inline-flex space-x-2 truncate text-sm"
+                          className="group inline-flex space-x-2 truncate text-sm items-center justify-items-center"
                         >
-                          <CashSVG />
+                          {
+                            type==TransactionType.Expense ? <CategoryIcon category={category} /> :<CashSVG/>
+                          }
                           <p className="text-gray-500 truncate group-hover:text-gray-900">
                             {title}
                           </p>

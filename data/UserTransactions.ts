@@ -1,3 +1,4 @@
+import { ExpenseCategory } from './../models/ExpenseCategory';
 import Months from "../models/Months";
 import Transaction from "../models/Transaction";
 import TransactionType from "../models/TransactionType";
@@ -12,6 +13,7 @@ export const UserTransactions: UserTransactionType = {
       amount: 400,
       date: new Date(),
       isRecurring: false,
+      category:ExpenseCategory.Food
     },
     {
       id: "2",
@@ -28,6 +30,7 @@ export const UserTransactions: UserTransactionType = {
       amount: 100,
       date: new Date(),
       isRecurring: false,
+      category:ExpenseCategory.Personal
     },
     {
       id: "4",
@@ -36,6 +39,7 @@ export const UserTransactions: UserTransactionType = {
       amount: 400,
       date: new Date(),
       isRecurring: false,
+      category:ExpenseCategory.Miscellaneous
     },
     {
       id: "5",
@@ -44,6 +48,7 @@ export const UserTransactions: UserTransactionType = {
       amount: 200,
       date: new Date(),
       isRecurring: false,
+      category:ExpenseCategory.Entertainment
     },
   ],
   February: [],

@@ -1,6 +1,5 @@
 import Head from "next/head";
 import useAppStore from "../store/AppStore";
-import TransactionList from "../components/TransactionList";
 import Navbar from "../components/Navbar";
 import Header from "../components/Header";
 import Dashboard from "../components/Dashboard";

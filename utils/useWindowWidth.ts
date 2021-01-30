@@ -23,3 +23,4 @@ export default function useWindowWidth(mediaQueryKey: MediaQuery) {
   }, [matched, mediaQuery]);
   return matched;
 }
+//window.matchMedia(mediaQuery).matches
