@@ -8,7 +8,7 @@ export const CategoryIcon: React.FC<CategoryIconPropType> = ({ category }) => {
   return (
     <div 
     className="w-3 h-3 rounded-full flex items-center justify-items-center bg-blue-900"
-    style={{ backgroundColor:`${Colorcodes[category]}` }}
+    style={{ backgroundColor:`${Colorcodes[category]}`}}
     ></div>
   );
 };

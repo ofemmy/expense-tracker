@@ -7,5 +7,5 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   //const trxList = (await models.Transaction.find({ month: +month }).lean()) || [];
   const trxList=await models.Transaction.find().lean()
   res.statusCode = 200;
-  res.json({ data: trxList });
+  res.json(trxList);
 };

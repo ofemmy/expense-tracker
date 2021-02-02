@@ -7,7 +7,6 @@ import { CategoryIcon } from "./CategoryIcon";
 import { ExpenseCategory } from "../models/ExpenseCategory";
 
 const DataTableBig: React.FC<DataTableProps> = ({ trxList, currency }) => {
-  console.log(trxList);
   return (
     <div className="">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -28,27 +27,33 @@ const DataTableBig: React.FC<DataTableProps> = ({ trxList, currency }) => {
                 </tr>
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
-                {/* {trxList.map(({ id, title, amount, date, type,category }) => (
-                  <tr className="bg-white" key={id}>
+                {trxList.map(({ _id, title, amount, date, type, category }) => (
+                  <tr className="bg-white" key={_id}>
                     <td className="max-w-0 w-full px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                       <div className="flex ">
                         <a
                           href="#"
                           className="group inline-flex space-x-2 truncate text-sm items-center justify-items-center"
                         >
-                          {
-                            type==TransactionType.Expense ? <CategoryIcon category={category} /> :<CashSVG/>
-                          }
+                          {type == TransactionType.Expense ? (
+                            <CategoryIcon category={category} />
+                          ) : (
+                            <CashSVG />
+                          )}
                           <p className="text-gray-500 truncate group-hover:text-gray-900">
                             {title}
                           </p>
                         </a>
                       </div>
                     </td>
-                    <td
-                      className="px-6 py-4 text-right whitespace-nowrap text-sm"
-                    >
-                      <span className={`${type==TransactionType.Income?'text-green-500':'text-red-500'} font-medium`}>
+                    <td className="px-6 py-4 text-right whitespace-nowrap text-sm">
+                      <span
+                        className={`${
+                          type == TransactionType.Income
+                            ? "text-green-500"
+                            : "text-red-500"
+                        } font-medium`}
+                      >
                         {type == TransactionType.Income ? "+" : "-"}
                         {formatNumberToCurrency(amount, currency)}
                       </span>
@@ -57,7 +62,7 @@ const DataTableBig: React.FC<DataTableProps> = ({ trxList, currency }) => {
                       {formatDate(date)}
                     </td>
                   </tr>
-                ))} */}
+                ))}
               </tbody>
             </table>
             <nav

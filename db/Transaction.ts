@@ -10,7 +10,7 @@ export class Transaction {
   year: number;
   type: TransactionType;
   category: ExpenseCategory;
-  id?: string;
+  _id?: string;
   owner?:string
   constructor(
     title: string,

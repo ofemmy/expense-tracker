@@ -1,17 +1,18 @@
 import { ExpenseCategory } from "../models/ExpenseCategory";
 
 export const Colorcodes: Record<ExpenseCategory, string> = {
-  clothing: "#E74C3C",
-  debt: "#F1C40F",
-  entertainment: "#77a5d6 ",
-  food: "#35cf75",
-  gifts: "#9E4B1B",
-  groceries: "#10207C",
-  insurance: "#770C94",
-  medical: "#cf6281",
-  miscellaneous: "#e7a006",
-  personal: "#e4d17b",
-  rent: "#721b1b",
-  transportation: "#4D5656",
-  utilities: "#EDBB99",
+  Clothing: "#E74C3C",
+  Debt: "#F1C40F",
+  Entertainment: "#77a5d6 ",
+  Food: "#35cf75",
+  Gifts: "#9E4B1B",
+  Groceries: "#10207C",
+  Insurance: "#770C94",
+  Medical: "#cf6281",
+  Miscellaneous: "#e7a006",
+  Personal: "#e4d17b",
+  Rent: "#721b1b",
+  Transportation: "#4D5656",
+  Utilities: "#EDBB99",
+  Income:"#5559d"
 };

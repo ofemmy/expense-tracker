@@ -6,15 +6,12 @@ import { ReactQueryDevtools } from "react-query/devtools";
 import AddTransactionForm from "../components/AddTransactionForm";
 import Expense from "../components/Expense";
 import Home from "../components/Home";
-import { Transaction } from "../db/Transaction";
+
 
 import Layout from "../components/Layout";
 import Income from "../components/income";
 
-async function fetchTransactions() {
-  const trxList = await (await fetch("/api/transactions")).json();
-  return trxList as Transaction[];
-}
+
 
 function SafeHydrate({ children }) {
   return (

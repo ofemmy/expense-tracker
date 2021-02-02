@@ -14,8 +14,8 @@ const DataTableSmall:React.FC<DataTableProps> = ({trxList,currency}) => {
         <div className="shadow sm:hidden">
           <ul className="mt-2 divide-y divide-gray-200 overflow-hidden shadow sm:hidden">
             {trxList
-              ? trxList.map(({ id, title, amount, date,type }) => (
-                  <li key={id}>
+              ? trxList.map(({ _id, title, amount, date,type }) => (
+                  <li key={_id}>
                     <a
                       href="#"
                       className="block px-4 py-4 bg-white hover:bg-gray-50"

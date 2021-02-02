@@ -36,15 +36,20 @@ const Sidebar: React.FC<SidebarProps> = (props) => {
       >
         <div className="px-2 space-y-1">
           {links.map(({ href, name,icon }) => (
-            <Link to={`${href}`}>
-              <a
+            <Link to={`${href}`}
+            key={name}
+            className="group flex items-center px-2 py-2 text-sm leading-6 font-medium rounded-md text-blue-100 hover:text-white hover:bg-blue-600"
+            >
+              {/* <a
                 href=""
                 className="group flex items-center px-2 py-2 text-sm leading-6 font-medium rounded-md text-blue-100 hover:text-white hover:bg-blue-600"
-                key={name}
+                
               >
                 {icon(null)}
                 {name}
-              </a>
+              </a> */}
+              {icon(null)}
+                {name}
             </Link>
           ))}
         </div>
