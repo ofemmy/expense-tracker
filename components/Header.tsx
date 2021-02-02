@@ -1,4 +1,5 @@
 import { useRouter } from "next/dist/client/router";
+import Link from "next/link";
 import React from "react";
 import Dropdown from "./Dropdown";
 type HeaderProps = {};
@@ -17,13 +18,15 @@ const Header: React.FC<HeaderProps> = (props) => {
       <div className="mt-1 flex sm:mt-0 sm:ml-4">
         <Dropdown/>
         {actionButtons.map((btn) => (
-          <button
+          <Link href="/new">
+          <a
           key={btn}
             type="button"
             className="order-0 inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:order-1 sm:ml-3"
           >
             {btn}
-          </button>
+          </a>
+          </Link>
         ))}
       </div>
     </div>

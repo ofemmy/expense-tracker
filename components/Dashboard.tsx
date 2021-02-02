@@ -5,13 +5,15 @@ import TransactionType from "../models/TransactionType";
 import Transaction from "../models/Transaction";
 import {formatNumberToCurrency } from "../utils";
 import { Doughnut } from "react-chartjs-2";
-
+type DashboardPropTypes={
+  transactions:Transaction[]
+}
 const Dashboard = () => {
    const currency = useAppStore(state=>state.currency)
    const transactions = useAppStore(state=>state.transactions)
    const selectedMonth = useAppStore(state=>state.selectedMonth)
    const { totalIncome, totalExpenditure } = calculateTotal(
-    transactions[selectedMonth] || []
+    transactions || []
   );
  
   const data = {

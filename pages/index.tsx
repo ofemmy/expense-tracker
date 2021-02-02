@@ -6,6 +6,8 @@ import Dashboard from "../components/Dashboard";
 import DataTable from "../components/DataTable";
 
 export default function Home() {
+  // const transactions = useAppStore(state=>state.transactions)
+  // console.log(transactions);
   return (
     <div className="">
       <Head>
