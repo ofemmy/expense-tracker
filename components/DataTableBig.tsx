@@ -7,6 +7,7 @@ import { CategoryIcon } from "./CategoryIcon";
 import { ExpenseCategory } from "../models/ExpenseCategory";
 
 const DataTableBig: React.FC<DataTableProps> = ({ trxList, currency }) => {
+  console.log(trxList);
   return (
     <div className="">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -27,7 +28,7 @@ const DataTableBig: React.FC<DataTableProps> = ({ trxList, currency }) => {
                 </tr>
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
-                {trxList.map(({ id, title, amount, date, type,category }) => (
+                {/* {trxList.map(({ id, title, amount, date, type,category }) => (
                   <tr className="bg-white" key={id}>
                     <td className="max-w-0 w-full px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                       <div className="flex ">
@@ -56,7 +57,7 @@ const DataTableBig: React.FC<DataTableProps> = ({ trxList, currency }) => {
                       {formatDate(date)}
                     </td>
                   </tr>
-                ))}
+                ))} */}
               </tbody>
             </table>
             <nav

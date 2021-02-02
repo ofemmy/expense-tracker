@@ -1,5 +1,5 @@
-import Header from "../components/Header";
-import Navbar from "../components/Navbar";
+import Header from "./Header";
+import Navbar from "./Navbar";
 function Income(params) {
   return (
     <div>
@@ -9,6 +9,7 @@ function Income(params) {
         tabIndex={0}
       >
         <Header />
+        INCOME COMPONENT
       </main>
     </div>
   );

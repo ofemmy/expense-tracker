@@ -1,29 +1,46 @@
-import Head from "next/head";
-import useAppStore from "../store/AppStore";
-import Navbar from "../components/Navbar";
-import Header from "../components/Header";
-import Dashboard from "../components/Dashboard";
-import DataTable from "../components/DataTable";
 
-export default function Home() {
-  // const transactions = useAppStore(state=>state.transactions)
-  // console.log(transactions);
+import { Switch, Route, Routes, BrowserRouter } from "react-router-dom";
+import { QueryClientProvider, QueryClient } from "react-query";
+import { ReactQueryDevtools } from "react-query/devtools";
+
+import AddTransactionForm from "../components/AddTransactionForm";
+import Expense from "../components/Expense";
+import Home from "../components/Home";
+import { Transaction } from "../db/Transaction";
+
+import Layout from "../components/Layout";
+import Income from "../components/income";
+
+async function fetchTransactions() {
+  const trxList = await (await fetch("/api/transactions")).json();
+  return trxList as Transaction[];
+}
+
+function SafeHydrate({ children }) {
   return (
-    <div className="">
-      <Head>
-        <title>Expense Tracker Application</title>
-        <link rel="icon" href="/favicon.ico" />
-        <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
-      </Head>
-      <Navbar/>
-      <main className="flex-1 relative z-0 overflow-y-auto focus:outline-none" tabIndex={0}>
-        <Header/>
-        <Dashboard/>
-        <h2 className="max-w-6xl mx-auto mt-8 px-4 text-lg leading-6 font-medium text-gray-900 sm:px-6 lg:px-8">
-          Recent transactions
-        </h2>
-        <DataTable/>
-      </main>
+    <div suppressHydrationWarning={true}> 
+      {typeof window === 'undefined' ? null : children}
     </div>
+  )
+}
+const queryClient = new QueryClient();
+
+export default function Index() { 
+  return (
+    <SafeHydrate>
+    <QueryClientProvider client={queryClient}>
+    <BrowserRouter>
+      <Layout>
+        <Switch>
+          <Route path="/expense" component={Expense} />
+          <Route path="/income" component={Income} />
+          <Route path="/new" component={AddTransactionForm} />
+          <Route path="/" component={Home} exact />
+        </Switch>
+      </Layout>
+    </BrowserRouter>
+    <ReactQueryDevtools initialIsOpen={false}/>
+    </QueryClientProvider>
+    </SafeHydrate>
   );
 }

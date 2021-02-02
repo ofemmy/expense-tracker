@@ -1,5 +1,5 @@
 import { useRouter } from "next/dist/client/router";
-import Link from "next/link";
+import {Link} from "react-router-dom";
 import React from "react";
 import Dropdown from "./Dropdown";
 type HeaderProps = {};
@@ -18,7 +18,7 @@ const Header: React.FC<HeaderProps> = (props) => {
       <div className="mt-1 flex sm:mt-0 sm:ml-4">
         <Dropdown/>
         {actionButtons.map((btn) => (
-          <Link href="/new">
+          <Link to="/new">
           <a
           key={btn}
             type="button"

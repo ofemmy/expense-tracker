@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { date, number, object, string, mixed } from "yup";
-import Navbar from "../components/Navbar";
-import ErrorSVG from "../components/svgs/ErrorSVG";
+import Navbar from "./Navbar";
 import { Transaction } from "../db/Transaction";
 import { ExpenseCategory } from "../models/ExpenseCategory";
 import TransactionType from "../models/TransactionType";
@@ -18,7 +17,7 @@ const schema = object().shape({
   category: string().required("Category is required"),
   date: date().required("Date is required"),
 });
-export default function New() {
+export default function AddTransactionForm() {
   const categories = Object.keys(ExpenseCategory).sort((a, b) =>
     a.localeCompare(b)
   );

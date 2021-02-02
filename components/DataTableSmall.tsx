@@ -1,13 +1,13 @@
 import React from 'react'
 import Currency from '../models/Currency';
-import Transaction from '../models/Transaction';
+import {Transaction} from '../db/Transaction';
 import TransactionType from "../models/TransactionType";
 import { formatDate, formatNumberToCurrency } from "../utils";
 import CashSVG from "./svgs/CashSVG";
 import ChevRightSVG from "./svgs/ChevRightSVG";
 export type DataTableProps = {
    trxList:Transaction[],
-   currency:Currency 
+   currency?:Currency 
 }
 const DataTableSmall:React.FC<DataTableProps> = ({trxList,currency}) => {
     return (

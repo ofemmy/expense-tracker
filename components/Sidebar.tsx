@@ -1,5 +1,5 @@
 import React from "react";
-import Link from "next/link";
+import {Link} from "react-router-dom"
 import SettingsSVG from "./svgs/SettingsSVG";
 import HelpSVG from "./svgs/HelpSVG";
 import HomeSVG from "./svgs/HomeSVG";
@@ -36,7 +36,7 @@ const Sidebar: React.FC<SidebarProps> = (props) => {
       >
         <div className="px-2 space-y-1">
           {links.map(({ href, name,icon }) => (
-            <Link href={href} key={name}>
+            <Link to={`${href}`}>
               <a
                 href=""
                 className="group flex items-center px-2 py-2 text-sm leading-6 font-medium rounded-md text-blue-100 hover:text-white hover:bg-blue-600"
