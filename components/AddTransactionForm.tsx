@@ -6,6 +6,9 @@ import Navbar from "./Navbar";
 import { Transaction } from "../db/Transaction";
 import { ExpenseCategory } from "../models/ExpenseCategory";
 import TransactionType from "../models/TransactionType";
+import { useMutation } from "react-query";
+import { queryClient } from "../pages/index";
+import { useToast } from "@chakra-ui/react";
 
 const schema = object().shape({
   title: string().required("Title is required"),
@@ -17,17 +20,40 @@ const schema = object().shape({
   category: string().required("Category is required"),
   date: date().required("Date is required"),
 });
+
 export default function AddTransactionForm() {
   const categories = Object.keys(ExpenseCategory).sort((a, b) =>
     a.localeCompare(b)
   );
-  const [toggleOn, setToggleOn] = useState(false);
+  const [isRecurring, setisRecurring] = useState(false);
   const { handleSubmit, register, reset, watch, errors } = useForm({
     resolver: yupResolver(schema),
   });
+  const toast = useToast();
+  const mutation = useMutation(
+    (data: Transaction) =>
+      fetch("/api/transaction", {
+        method: "POST",
+        body: JSON.stringify(data),
+      }),
+    {
+      onSuccess: (responseData) => {
+        reset(); //Reset form state
+        toast({
+          title: "Success.",
+          description: "Transaction saved successfully.",
+          status: "success",
+          duration: 2000,
+          isClosable: true,
+          position: "top-right",
+        });
+        queryClient.invalidateQueries("transactions");
+      },
+    }
+  );
   const onSubmit = (data: Transaction) => {
-    data.isRecurring = toggleOn;
-    console.log({ data });
+    data.isRecurring = isRecurring;
+    mutation.mutate(data);
   };
   return (
     <div>
@@ -198,11 +224,11 @@ export default function AddTransactionForm() {
                     <div className="flex items-center">
                       <button
                         type="button"
-                        onClick={(e) => setToggleOn(!toggleOn)}
+                        onClick={(e) => setisRecurring(!isRecurring)}
                         aria-pressed="false"
                         aria-labelledby="toggleLabel"
                         className={`${
-                          toggleOn ? "bg-blue-900" : "bg-gray-200"
+                          isRecurring ? "bg-blue-900" : "bg-gray-200"
                         }  relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500`}
                       >
                         <span className="sr-only">isRecurring</span>
@@ -210,7 +236,7 @@ export default function AddTransactionForm() {
                         <span
                           aria-hidden="true"
                           className={`${
-                            toggleOn ? "translate-x-5" : "translate-x-0"
+                            isRecurring ? "translate-x-5" : "translate-x-0"
                           } pointer-events-none  inline-block h-5 w-5 rounded-full bg-white shadow transform ring-0 transition ease-in-out duration-200`}
                         ></span>
                       </button>
@@ -268,7 +294,10 @@ export default function AddTransactionForm() {
                     </button>
                     <button
                       type="submit"
-                      className="ml-4 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                      className={`ml-4 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white ${
+                        mutation.isLoading ? "bg-gray-500" : "bg-blue-600"
+                      } hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500`}
+                      disabled={mutation.isLoading}
                     >
                       Save
                     </button>

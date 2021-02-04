@@ -20,7 +20,7 @@ function SafeHydrate({ children }) {
     </div>
   )
 }
-const queryClient = new QueryClient();
+export const queryClient = new QueryClient();
 
 export default function Index() { 
   return (
