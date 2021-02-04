@@ -4,6 +4,7 @@ import mongoose from "mongoose";
 import { Transaction } from "./Transaction";
 import TransactionType from "../models/TransactionType";
 import { ExpenseCategory } from "../models/ExpenseCategory";
+import bcrypt from "bcryptjs";
 
 export const connectDB = async function () {
   const connection = await mongoose.createConnection(
@@ -32,15 +33,8 @@ export async function loadData() {
       password: "kfkffo99r9r",
     },
   ];
-  const { models } = await connectDB();
-  models.User.collection.insertMany(users, (err, docs) => {
-    if (err) {
-      res.err = err;
-    } else {
-      console.log(docs.insertedCount);
-      res.count = docs.insertedCount;
-    }
-  });
+  users.forEach(registerUser);
+
   return res;
 }
 export async function loadTransactions() {
@@ -80,4 +74,15 @@ export async function loadTransactions() {
     console.log(error);
     return error;
   }
+}
+
+async function registerUser(user: {
+  name: string;
+  email: string;
+  password: string;
+}) {
+  //hashPassword
+  user.password = await bcrypt.hash(user.password, 10);
+  const { models } = await connectDB();
+  await models.User.create(user);
 }

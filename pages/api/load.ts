@@ -1,5 +1,6 @@
 import { loadData } from "../../db";
 
 export default async (req, res) => {
-  res.json({ msg: "Success" });
+  const response = await loadData();
+  res.json({ msg: "Success", data: response });
 };

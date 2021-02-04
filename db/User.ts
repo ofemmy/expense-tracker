@@ -1,4 +1,4 @@
-export class AppUser {
+export default class AppUser {
   name: string;
   email: string;
   password: string;
