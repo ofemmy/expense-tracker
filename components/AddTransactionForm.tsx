@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useForm } from "react-hook-form";
+import { useForm,Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { date, number, object, string, mixed } from "yup";
 import Navbar from "./Navbar";
@@ -9,7 +9,12 @@ import TransactionType from "../models/TransactionType";
 import { useMutation } from "react-query";
 import { queryClient } from "../pages/index";
 import { useToast } from "@chakra-ui/react";
+import useAppStore from "../store/AppStore";
+import DatePicker, { registerLocale } from "react-datepicker";
 
+import { de } from "date-fns/locale";
+import CustomInput from "./CustomInput";
+import "react-datepicker/dist/react-datepicker.css";
 const schema = object().shape({
   title: string().required("Title is required"),
   type: mixed().required("A transaction type must be chosen"),
@@ -20,13 +25,15 @@ const schema = object().shape({
   category: string().required("Category is required"),
   date: date().required("Date is required"),
 });
-
+registerLocale("de", de);
 export default function AddTransactionForm() {
   const categories = Object.keys(ExpenseCategory).sort((a, b) =>
     a.localeCompare(b)
   );
+  const user = useAppStore((state) => state.user);
   const [isRecurring, setisRecurring] = useState(false);
-  const { handleSubmit, register, reset, watch, errors } = useForm({
+  const [date, setDate] = useState(new Date());
+  const { handleSubmit, register, reset, watch, errors,control } = useForm({
     resolver: yupResolver(schema),
   });
   const toast = useToast();
@@ -53,6 +60,7 @@ export default function AddTransactionForm() {
   );
   const onSubmit = (data: Transaction) => {
     data.isRecurring = isRecurring;
+    data.owner = user._id;
     mutation.mutate(data);
   };
   return (
@@ -197,7 +205,20 @@ export default function AddTransactionForm() {
                       >
                         Date
                       </label>
-                      <div className="mt-1">
+                      <Controller
+                      name="date"
+                      control={control}
+                      defaultValue=""
+                      render={({onChange,value})=>(<DatePicker onChange={onChange} selected={value} customInput={<CustomInput/>} locale="de" closeOnScroll={true}/>)}
+                      />
+                      {/* <DatePicker
+                      selected={date}
+                      onChange={date=>setDate(date)}
+                      customInput={<CustomInput/>}
+                      closeOnScroll={true}
+                      locale="de"
+                      /> */}
+                      {/* <div className="mt-1">
                         <input
                           type="text"
                           name="date"
@@ -205,10 +226,10 @@ export default function AddTransactionForm() {
                           className={`${
                             errors.date ? "border-red-600" : "border-gray-300"
                           } block w-full shadow-sm sm:text-sm focus:ring-blue-500 focus:border-blue-500 rounded-sm`}
-                          placeholder="DD-MM-YYYY"
+                          placeholder="YYYY-MM-DD"
                           ref={register}
                         />
-                      </div>
+                      </div> */}
                       {errors.date && (
                         <p
                           className="mt-2 text-sm text-red-600"

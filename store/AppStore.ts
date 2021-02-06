@@ -1,3 +1,4 @@
+import { queryClient } from './../pages/index';
 import { ExpenseCategory } from "./../models/ExpenseCategory";
 import create, { SetState, GetState } from "zustand";
 import { UserTransactionType } from "./../data/UserTransactions";
@@ -8,8 +9,10 @@ import Transaction from "../models/Transaction";
 type User = {
   _id: string; name: string; email: string
 }
+//type MonthNames = "January"|"February"|"March"|"April"|"May"|"June";
+type Month = {name:string,code:number}
 type AppState = {
-  selectedMonth: Months;
+  selectedMonth:Month;
   currency: Currency;
   setMonth: (mnt) => void;
   user?: User;
@@ -19,9 +22,9 @@ type AppState = {
 const useAppStore = create<AppState>(
   (set: SetState<AppState>, get: GetState<AppState>) => ({
     user:undefined,
-    selectedMonth: Months.January,
+    selectedMonth:Months.January,
     currency: Currency.EUR,
-    setMonth: (mnt) => set({ selectedMonth: mnt }),
+    setMonth: (mnt) => {set({ selectedMonth: Months[mnt] })},
     setUser:(user)=>set({user})
    
   })

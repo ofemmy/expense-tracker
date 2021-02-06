@@ -5,16 +5,17 @@ import TransactionType from "../models/TransactionType";
 import { Transaction } from "../db/Transaction";
 import { formatNumberToCurrency } from "../utils";
 import { Doughnut } from "react-chartjs-2";
+import { useQuery } from "react-query";
 type DashboardPropTypes = {
-  transactions: Transaction[];
+  summary: {month:number, totalIncome:number,totalExpense:number };
 };
-const Dashboard: React.FC<DashboardPropTypes> = ({ transactions }) => {
-  const currency = useAppStore((state) => state.currency);
-  //  const transactions = useAppStore(state=>state.transactions)
-  const selectedMonth = useAppStore((state) => state.selectedMonth);
-  const { totalIncome, totalExpenditure } = calculateTotal(transactions || []);
 
-  const data = {
+const Dashboard: React.FC<DashboardPropTypes> = ({ summary }) => {
+ 
+  const currency = useAppStore((state) => state.currency);
+  const selectedMonth = useAppStore((state) => state.selectedMonth);
+
+  const graphData = {
     labels: [
       "Income",
       "Expenses",
@@ -23,7 +24,7 @@ const Dashboard: React.FC<DashboardPropTypes> = ({ transactions }) => {
     ],
     datasets: [
       {
-        data: [totalIncome, totalExpenditure],
+        data: [summary.totalIncome, summary.totalExpense],
         backgroundColor: [
           "#10a335",
           "#ec0b3c",
@@ -46,10 +47,10 @@ const Dashboard: React.FC<DashboardPropTypes> = ({ transactions }) => {
   return (
     <div className="max-w-6xl px-4 sm:px-6 mt-6 lg:px-8">
       <h2 className="text-gray-500 text-xs font-medium uppercase tracking-wide">
-        {selectedMonth}
+        {selectedMonth.name}
       </h2>
 
-      <div className="mt-4 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="mt-4 grid lg:h-40 grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {/* Card component */}
         <div className="bg-white overflow-hidden shadow rounded-lg relative">
           <div className="p-5">
@@ -64,7 +65,7 @@ const Dashboard: React.FC<DashboardPropTypes> = ({ transactions }) => {
                   </dt>
                   <dd>
                     <div className="text-lg font-medium text-gray-800">
-                      {formatNumberToCurrency(totalIncome, currency)}
+                      {formatNumberToCurrency(summary.totalIncome, currency)}
                     </div>
                   </dd>
                 </dl>
@@ -96,7 +97,7 @@ const Dashboard: React.FC<DashboardPropTypes> = ({ transactions }) => {
                   </dt>
                   <dd>
                     <div className="text-lg font-medium text-gray-900">
-                      {formatNumberToCurrency(totalExpenditure, currency)}
+                      {formatNumberToCurrency(summary.totalExpense, currency)}
                     </div>
                   </dd>
                 </dl>
@@ -114,9 +115,12 @@ const Dashboard: React.FC<DashboardPropTypes> = ({ transactions }) => {
             </div>
           </div>
         </div>
+        {
+          summary?
         <div className="bg-white overflow-hidden shadow rounded-lg lg:py-4 py-2">
-          <Doughnut
-            data={data}
+          
+             <Doughnut
+            data={graphData}
             options={{
               maintainAspectRatio: false,
               legend: {
@@ -127,12 +131,14 @@ const Dashboard: React.FC<DashboardPropTypes> = ({ transactions }) => {
               layout: { padding: { right: 10, left: 10 } },
             }}
           />
-        </div>
+         
+         
+        </div>:null}
       </div>
     </div>
   );
 };
-function calculateTotal(trxList: Transaction[]) {
+function calculateTotal(trxList: Transaction[] = []) {
   const result = {
     totalIncome: 0,
     totalExpenditure: 0,

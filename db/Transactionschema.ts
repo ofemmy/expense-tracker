@@ -1,6 +1,6 @@
 import {Schema} from 'mongoose'
 
-export const transactionSchema = new Schema({
+export const TransactionSchema = new Schema({
     title:String,
     amount:Number,
     type:{type:String},

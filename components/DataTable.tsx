@@ -1,15 +1,17 @@
-import dynamic from "next/dynamic"
+import dynamic from "next/dynamic";
 import { Transaction } from "../db/Transaction";
 import useAppStore from "../store/AppStore";
 import useWindowWidth from "../utils/useWindowWidth";
-
-const DataTableBig = dynamic(()=>import("./DataTableBig"));
-const DataTableSmall = dynamic(()=>import("./DataTableSmall"));
+import { apiResult } from "../types/ApiResult";
+const DataTableBig = dynamic(() => import("./DataTableBig"));
+const DataTableSmall = dynamic(() => import("./DataTableSmall"));
 type DataTablePropTypes = {
-  transactions:Transaction[]
-}
-const DataTable:React.FC<DataTablePropTypes> = ({transactions}) => {
-  const screenWidthMatched = useWindowWidth("sm") //screen is at least or greater than  sm[640px];
+  data: apiResult;
+  setPage: Function;
+  page: number;
+};
+const DataTable: React.FC<DataTablePropTypes> = ({ data, setPage, page }) => {
+  const screenWidthMatched = useWindowWidth("sm"); //screen is at least or greater than  sm[640px];
   //const transactions = useAppStore((state) => state.transactions);
   const selMonth = useAppStore((state) => state.selectedMonth);
   const currency = useAppStore((state) => state.currency);
@@ -17,13 +19,22 @@ const DataTable:React.FC<DataTablePropTypes> = ({transactions}) => {
   return (
     <div className="pb-5">
       {screenWidthMatched ? (
-        <DataTableBig trxList={transactions} currency={currency}/>
+        <DataTableBig
+          data={data.data}
+          currency={currency}
+          setPage={setPage}
+          page={page}
+        />
       ) : (
-        <DataTableSmall trxList={transactions} currency={currency} />
+        <DataTableSmall
+          data={data.data}
+          currency={currency}
+          setPage={setPage}
+          page={page}
+        />
       )}
     </div>
   );
 };
 
 export default DataTable;
-

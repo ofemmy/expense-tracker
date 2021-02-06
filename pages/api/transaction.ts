@@ -1,9 +1,10 @@
-import { NextApiRequest, NextApiResponse } from "next";
-import { connectDB } from "../../db";
+import { NextApiResponse } from "next";
+import handler from "../../middlewares"
+import {AppNextApiRequest} from "../../types/AppNextApiRequest"
 import { Transaction } from "../../db/Transaction";
 
-export default async (req: NextApiRequest, res: NextApiResponse) => {
-  const { models } = await connectDB();
+export default  handler.post(async (req: AppNextApiRequest, res: NextApiResponse) => {
+  //const { models } = await connectDB();
   if (req.method === "POST") {
     const {
       title,
@@ -12,10 +13,12 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       category,
       date,
       type,
+      owner,
     }: Transaction = JSON.parse(req.body);
 
     try {
-        const newTrx = await models.Transaction.create(
+      const TransactionModel = req.Transaction
+        const newTrx = await TransactionModel.create(
           new Transaction(
             title,
             amount,
@@ -23,7 +26,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             new Date(date),
             type,
             category,
-            "60175b5a9964f0ca42a82c01"
+            owner
           )
         );
       res.statusCode = 200;
@@ -36,4 +39,4 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     res.statusCode = 405;
     return res.json({ msg: "Invalid HTTP method", data: null });
   }
-};
+});

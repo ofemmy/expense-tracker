@@ -1,18 +1,22 @@
-import { transactionSchema } from "./Transactionschema";
-import { userSchema } from "./Userschema";
+import { TransactionSchema } from "./Transactionschema";
+import { UserSchema } from "./Userschema";
 import mongoose from "mongoose";
 import { Transaction } from "./Transaction";
 import TransactionType from "../models/TransactionType";
 import { ExpenseCategory } from "../models/ExpenseCategory";
 import bcrypt from "bcryptjs";
-
+ const dbConnection:{isConnected:number}={isConnected:0}
 export const connectDB = async function () {
-  const connection = await mongoose.createConnection(
+  if (dbConnection.isConnected) {
+    console.log(dbConnection.isConnected)
+  }
+  const connection = await mongoose.connect(
     `mongodb+srv://Oladayo:${process.env.DB_PASSWORD}@cluster0.ygnwi.mongodb.net/expense-tracker?retryWrites=true&w=majority`,
     { useNewUrlParser: true, useUnifiedTopology: true }
   );
-  const User = connection.model("User", userSchema);
-  const Transaction = connection.model("Transaction", transactionSchema);
+  console.log("Connecting to db")
+  const User = connection.model("User", UserSchema);
+  const Transaction = connection.model("Transaction", TransactionSchema);
   return {
     connection,
     models: {
